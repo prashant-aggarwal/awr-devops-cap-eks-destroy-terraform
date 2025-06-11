@@ -15,11 +15,11 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'Github',
-                    url: 'https://github.com/prashant-aggarwal/awr-devops-cap-eks-create-terraform.git'
+                    url: 'https://github.com/prashant-aggarwal/awr-devops-cap-eks-destroy-terraform.git'
             }
         }
 
-		// Stage 1 - Install Terraform
+		// Stage 2 - Install Terraform
         stage('Install Terraform') {
             steps {
                 sh '''
@@ -35,7 +35,8 @@ pipeline {
             }
         }
 		
-		stage('Deploy Terraform') {
+		// Stage 3 - Destroy EKS Cluster
+        stage('Destroy EKS Cluster') {
             steps {
 				script {
 					// Install AWS Steps plugin to make this work
@@ -43,9 +44,7 @@ pipeline {
 						try {
 							sh '''
 								cd app
-								terraform init
-								terraform plan
-								terraform apply -auto-approve
+								terraform destroy -auto-approve
 							'''
 						} catch (exception) {
 							echo "❌ Failed to create EKS cluster: ${exception}"
