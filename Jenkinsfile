@@ -44,6 +44,8 @@ pipeline {
 						try {
 							sh '''
 								cd app
+								terraform init
+								# terraform plan
 								terraform destroy -auto-approve
 							'''
 						} catch (exception) {
