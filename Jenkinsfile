@@ -1,6 +1,15 @@
 pipeline {
     agent any
 
+	// Set the environment variables
+    environment {
+        AWS_REGION = 'us-east-1'
+        CUSTOM_BIN = "${env.HOME}/bin"
+        PATH = "${env.HOME}/bin:${env.PATH}"
+		S3_BUCKET = 'pa-capstone-terraform-deployment-bucket'
+		S3_KEY = 'envs/dev/terraform.tfstate'
+    }
+
 	// Multistage pipeline
     stages {
 		// Stage 1 - Checkout code repository
@@ -33,7 +42,7 @@ pipeline {
             steps {
 				script {
 					// Install AWS Steps plugin to make this work
-					withAWS(region: "${AWS_REGION}", credentials: 'AWS') {
+					withAWS(region: "${env.AWS_REGION}", credentials: 'AWS') {
 						try {
 							sh '''
 								cd app
