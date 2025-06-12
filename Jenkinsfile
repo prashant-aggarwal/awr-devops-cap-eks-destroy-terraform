@@ -1,15 +1,6 @@
 pipeline {
     agent any
 
-	// Set the environment variables
-    environment {
-        AWS_REGION = 'us-east-1'
-        CUSTOM_BIN = "${env.HOME}/bin"
-        PATH = "${env.HOME}/bin:${env.PATH}"
-		S3_BUCKET = 'pa-capstone-terraform-deployment-bucket'
-		S3_KEY = 'envs/dev/terraform.tfstate'
-    }
-
 	// Multistage pipeline
     stages {
 		// Stage 1 - Checkout code repository
