@@ -3,7 +3,6 @@ pipeline {
 
 	// Set the environment variables
     environment {
-        CUSTOM_BIN = "${env.HOME}/bin"
         PATH = "${env.HOME}/bin:${env.PATH}"
     }
 
