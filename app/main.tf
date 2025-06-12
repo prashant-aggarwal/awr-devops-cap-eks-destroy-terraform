@@ -6,3 +6,7 @@ module "eks_cluster" {
   node_group_name = "default"
   namespace       = "dev"
 }
+
+terraform {
+  backend "s3" {}
+}

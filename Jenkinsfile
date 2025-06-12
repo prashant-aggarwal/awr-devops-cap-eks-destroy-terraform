@@ -6,6 +6,8 @@ pipeline {
         AWS_REGION = 'us-east-1'
         CUSTOM_BIN = "${env.HOME}/bin"
         PATH = "${env.HOME}/bin:${env.PATH}"
+		S3_BUCKET = 'pa-capstone-terraform-deployment-bucket'
+		S3_KEY = 'envs/dev/terraform.tfstate'
     }
 
 	// Multistage pipeline
@@ -44,7 +46,11 @@ pipeline {
 						try {
 							sh '''
 								cd app
-								terraform init
+								terraform init \
+								  -backend-config="bucket=${S3_BUCKET}" \
+								  -backend-config="key=${S3_KEY}" \
+								  -backend-config="region=${AWS_REGION}" \
+								  -backend-config="encrypt=true"
 								# terraform plan
 								terraform destroy -auto-approve
 							'''
