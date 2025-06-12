@@ -33,7 +33,7 @@ pipeline {
             steps {
 				script {
 					// Install AWS Steps plugin to make this work
-					withAWS(region: "${env.AWS_REGION}", credentials: 'AWS') {
+					withAWS(region: "${AWS_REGION}", credentials: 'AWS') {
 						try {
 							sh '''
 								cd app
