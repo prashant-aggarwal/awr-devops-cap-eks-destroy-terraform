@@ -57,7 +57,7 @@ pipeline {
 								terraform destroy -auto-approve
 							'''
 						} catch (exception) {
-							error("Deployment failed: ${e}")
+							error("Deployment failed: ${exception}")
 						}
 					}
                 }
